@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Http\Request\Path;
 use App\Http\Request\Validator;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
@@ -78,7 +79,7 @@ class TaskController extends BaseController
                 return new RedirectResponse('/');
             }
             SessionFlash::error("Поле описание объязательно");
-            return new RedirectResponse('/');
+            return new RedirectResponse(Path::generate('task'));
         } catch (\Exception $e) {
             return new HtmlResponse($this->render("error/error", ["error" => $e->getMessage()]));
         }
@@ -88,13 +89,13 @@ class TaskController extends BaseController
     {
         $id = $request->getAttribute('id');
         $this->repository->completeTask($id);
-        return new RedirectResponse('/');
+        return new RedirectResponse(Path::generate('task'));
     }
 
     public function unComplete(ServerRequest $request): RedirectResponse
     {
         $id = $request->getAttribute('id');
         $this->repository->unCompleteTask($id);
-        return new RedirectResponse('/');
+        return new RedirectResponse(Path::generate('task'));
     }
 }

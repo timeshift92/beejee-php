@@ -1,7 +1,7 @@
 {% for task in tasks %}
     <li>
         <div class="d-flex flex-gap-1">
-            <form action="/{{ task.id }}/{{ task.is_complete ? 'un-complete' : "complete" }}" method="post">
+            <form action="{{ path(task.is_complete? 'task-un-complete' :'task-complete',{id:task.id}) }}" method="post">
                 {% if auth.user %}
                     <input id="checkbox_{{ task.id }}"
                            onclick="event.currentTarget.parentNode.submit()"

@@ -35,7 +35,6 @@ class AuraRouterAdapter implements Router
             $queryParam = '';
             if (count($query) > 0)
                 $queryParam = '?' . http_build_query($query);
-
             return $generator($name, $params) . $queryParam;
         } catch (RouteNotFound $e) {
             throw new RouteNotFoundException($name, $params, $e);

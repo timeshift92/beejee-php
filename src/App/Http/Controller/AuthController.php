@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Http\Request\Path;
 use App\Repositories\TaskRepository;
 use Framework\Http\Session\SessionFlash;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -30,7 +31,7 @@ class AuthController extends BaseController
             }
         }
 
-        return new RedirectResponse('/');
+        return new RedirectResponse(Path::generate('task'));
     }
 
     public function logout()
@@ -38,6 +39,6 @@ class AuthController extends BaseController
         session_destroy();
         if (isset($_SESSION["login"]))
             unset($_SESSION["login"]);
-        return new RedirectResponse("/");
+        return new RedirectResponse(Path::generate('task'));
     }
 }

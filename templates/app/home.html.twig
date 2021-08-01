@@ -9,6 +9,7 @@
 
     <div class="container">
         <div class="row  ">
+            {% if count  > 0 %}
             <div class=" col-6  mx-auto ">
                 <div class="w-100 pr-2 pl-2 bg-white box-tools pull-right">
                     <form action="{{ path('task',{} ,params) }}" id="filterForm" class="d-flex flex-gap-1">
@@ -59,6 +60,7 @@
                     </form>
                 </div>
             </div>
+            {% endif %}
         </div>
         <div class="row center">
 

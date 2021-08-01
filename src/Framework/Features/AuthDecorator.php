@@ -2,6 +2,7 @@
 
 namespace Framework\Features;
 
+use App\Http\Request\Path;
 use Framework\Http\Session\SessionFlash;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -23,6 +24,6 @@ class AuthDecorator
         }
         SessionFlash::error("Для данного действия необходимо авторизация");
 
-        return new RedirectResponse("/");
+        return new RedirectResponse(Path::generate('task'));
     }
 }

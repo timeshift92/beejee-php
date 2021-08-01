@@ -17,7 +17,7 @@
         {% if auth.user %}
             <div class="text-center text-white d-flex flex-row ">
                 <span class="pr-2 align-self-center">{{ auth.user }}</span>
-                <form action="/logout" method="post">
+                <form action="{{ path('login') }}" method="post">
                     <button class="btn btn-default btn-blue" type="submit" >
                         Выйти
                     </button>

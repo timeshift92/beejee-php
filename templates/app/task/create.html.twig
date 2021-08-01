@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="taskCreateForm" action="/" method="post">
+                <form id="taskCreateForm" action="{{ path('task-add') }}" method="post">
                     <div class="form-group">
                         <label for="username">Имя пользователя</label>
                         <input name="username" type="text" class="form-control" id="username">
@@ -40,7 +40,7 @@
             $("#email").val(data.email).prop('readonly', true);
             $("#description").val(data.description);
 
-            $("#taskCreateForm").attr('action', `/${data.id}`)
+            $("#taskCreateForm").attr('action', `{{ path('task-update') }} /${data.id}`)
         }
     }
 </script>

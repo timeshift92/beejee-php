@@ -56,6 +56,7 @@ $routes->post('task-un-complete', '/{id}/un-complete', new AuthDecorator([new Ta
 
 
 $router = new AuraRouterAdapter($aura);
+\App\Http\Request\Path::$router = $router;
 $resolver = new ControllerResolver();
 $twig->addExtension(new \Framework\Template\Twig\Extension\RouteExtension($router));
 ### Running
