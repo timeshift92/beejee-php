@@ -1,0 +1,47 @@
+{% for task in tasks %}
+    <li>
+        <div class="d-flex flex-gap-1">
+            <form action="/{{ task.id }}/{{ task.is_complete ? 'un-complete' : "complete" }}" method="post">
+                {% if auth.user %}
+                    <input id="checkbox_{{ task.id }}"
+                           onclick="event.currentTarget.parentNode.submit()"
+                           type="checkbox" value=""
+                           name="is_complete">
+                {% else %}
+                    <input id="checkbox_{{ task.id }}"
+                           disabled
+                           onclick="event.currentTarget.parentNode.submit()"
+                           type="checkbox" value=""
+                           name="is_complete">
+                {% endif %}
+                <script>
+                    document.querySelector('#checkbox_{{ task.id }}').checked = '{{ task.is_complete }}'
+                </script>
+            </form>
+            <label for="is_complete"></label>
+            <span class="text">
+                {{ task.username }}
+            </span>
+            <p class="text-right small badge-info rounded p-2 ">
+                {{ task.email }}
+            </p>
+
+        </div>
+        <div class="text-wrap">
+            {{ task.description | striptags ("<div></div><strong></strong>")  |raw }}
+        </div>
+        <small class="label label-danger">
+            <i class="fa fa-clock-o"></i>
+            {{ task.created_at | date('H:i') }}
+        </small>
+        <div class="tools">
+            {% if auth.user %}
+                <i class="fa fa-edit btn pointer"
+                   onclick="fillData({{ task|json_encode(constant('JSON_PRETTY_PRINT')) }}); $('#createTask').modal('show') "></i>
+            {% endif %}
+        </div>
+    </li>
+    <script>
+    </script>
+{% endfor %}
+    

@@ -1,0 +1,107 @@
+{% extends 'layouts/default.html.twig' %}
+{% block title %}Home Page title{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Home Page description"/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row  ">
+            <div class=" col-6  mx-auto ">
+                <div class="w-100 pr-2 pl-2 bg-white box-tools pull-right">
+                    <form action="{{ path('task',{} ,params) }}" id="filterForm" class="d-flex flex-gap-1">
+                        <input type="hidden" id="filterField" name="orderBy[field]">
+                        <input type="hidden" id="filterField" name="page" value="{{ params.page }}">
+                        <div class="form-group d-flex flex-column">
+                            <label for="filterUsername">Имя пользователя </label>
+                            <select oninput="$('#filterField').val('username');  $('#filterForm').submit()"
+                                    name="orderBy[direction]" id="filterUsername">
+                                <option disabled selected></option>
+                                <option value="asc"> По возрастанию</option>
+                                <option value="desc"> По Убыванию</option>
+                            </select>
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <label for="filterEmail">Емейл </label>
+                            <select oninput="$('#filterField').val('email');  $('#filterForm').submit()"
+                                    name="orderBy[direction]" id="filterEmail">
+                                <option disabled selected></option>
+                                <option value="asc"> По возрастанию</option>
+                                <option value="desc"> По Убыванию</option>
+                            </select>
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <label for="filterIsComplete">Статус</label>
+                            <select name="orderBy[direction]" id="filterIsComplete"
+                                    oninput="$('#filterField').val('is_complete');  $('#filterForm').submit()">
+                                <option disabled selected></option>
+                                <option value="asc"> Не выполнено</option>
+                                <option value="desc"> выполнено</option>
+                            </select>
+                        </div>
+                        <script>
+                            window.addEventListener('load', function () {
+                                switch ("{{ params.orderBy.field }}") {
+                                    case 'email':
+                                        $("#filterEmail > option[value='{{ params.orderBy.direction }}']").attr("selected", "selected");
+                                        break;
+                                    case 'username':
+                                        $("#filterUsername > option[value='{{ params.orderBy.direction }}']").attr("selected", "selected");
+                                        break;
+                                    case 'is_complete':
+                                        $("#filterIsComplete > option[value='{{ params.orderBy.direction }}']").attr("selected", "selected");
+                                }
+                            })
+                        </script>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row center">
+
+            <div class="col-md-6 mx-auto">
+                <div class="box box-aqua">
+                    <div class="box-header ui-sortable-handle">
+                        <i class="ion ion-clipboard"></i>
+                        <h3 class="box-title">Список Задач</h3>
+
+                        <div class="box-tools pull-right">
+                            {% if count  > 3 %}
+                                {% include 'pagination.html.twig' with {
+                                    currentFilters: params,
+                                    currentPage: params.page ? params.page : 1 ,
+                                    paginationPath: "task",
+                                    lastPage: (count / 3) | round(0,'ceil'),
+                                    showAlwaysFirstAndLast: true
+                                } %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+
+                    <div class="box-body">
+                        <ul class="todo-list ui-sortable">
+                            {% if tasks %}
+                                {% include "app/task/list.html.twig" with {'tasks':tasks } %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="box-footer clearfix no-border">
+                        <button data-toggle="modal" data-target="#createTask" type="button"
+                                class="btn btn-default pull-right"><i class="fa fa-plus"></i> Добавить задачу
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    {% include "app/task/create.html.twig" %}
+{% endblock %}
+
+

@@ -1,0 +1,35 @@
+version: "3.6"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "54332:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  nginx:
+    image: tutum/nginx
+    ports:
+      - "8111:80"
+    links:
+      - php-fpm
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/sites-available/default
+      - ./docker/nginx/default.conf:/etc/nginx/sites-enabled/default
+      - ./docker/nginx/logs/nginx-access.log:/var/log/nginx/access.log
+      - ./docker/nginx/logs/nginx-error.log:/var/log/nginx/error.log
+      - ./:/application
+
+
+  php-fpm:
+    build: docker/php-fpm
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/application
+volumes:
+  db_data:
