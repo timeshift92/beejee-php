@@ -18,4 +18,4 @@ function connect(string $host, string $db, string $user, string $password): PDO
     }
 }
 
-return connect("postgres", "postgres", "postgres", "postgres");
+return connect("ec2-3-237-55-96.compute-1.amazonaws.com", "df7tmdmd3knte0", "nwcfbtkkaamhan", "0b644be7d843fbb19360fcf004c22ca4c4e49b805c623b42c55fabb6a643c691");
