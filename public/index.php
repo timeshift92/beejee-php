@@ -30,7 +30,7 @@ require 'config/initialize.php';
 ### Template
 
 $loader = new \Twig\Loader\FilesystemLoader('templates');
-$twig = new \Twig\Environment($loader,);
+$twig = new \Twig\Environment($loader);
 
 $twig->addGlobal('session', new \Framework\Http\Session\SessionFlash());
 $twig->addGlobal('auth', new \Framework\Http\Session\SessionAuth());

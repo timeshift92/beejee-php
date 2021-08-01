@@ -19,7 +19,7 @@ class AuthController extends BaseController
         $this->repository = new TaskRepository();
     }
 
-    public function login(ServerRequest $request)
+    public function login(ServerRequest $request): RedirectResponse
     {
         if (isset($request->getParsedBody()['login']) && isset($request->getParsedBody()['password'])) {
             $login = $request->getParsedBody()['login'];
