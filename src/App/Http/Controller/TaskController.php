@@ -24,7 +24,7 @@ class TaskController extends BaseController
 
     public function index(ServerRequest $request): HtmlResponse
     {
-        $page = $request->getQueryParams()['page'] ?? 1;
+        $page = isset($request->getQueryParams()['page']) && !empty($request->getQueryParams()['page']) ? $request->getQueryParams()['page'] : 1;
         $query = $request->getQueryParams()['orderBy'] ?? [];
 
 
@@ -51,10 +51,10 @@ class TaskController extends BaseController
             ];
             if ($validator->validate()) {
                 $this->repository->setTask($task);
-                return new RedirectResponse('/');
+                return new RedirectResponse(Path::generate('task'));
             }
             SessionFlash::error(implode("\n", $validator->errors->all()));
-            return new RedirectResponse('/');
+            return new RedirectResponse(Path::generate('task'));
 
         } catch (\Exception $e) {
             return new HtmlResponse($this->render("error/error", ["error" => $e->getMessage()]));
@@ -76,7 +76,7 @@ class TaskController extends BaseController
             if ($validator->validate()) {
                 $this->repository->updateDescription($id, $description);
                 SessionFlash::success("Описание обновлено");
-                return new RedirectResponse('/');
+                return new RedirectResponse(Path::generate('task'));
             }
             SessionFlash::error("Поле описание объязательно");
             return new RedirectResponse(Path::generate('task'));
