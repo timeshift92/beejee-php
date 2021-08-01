@@ -41,7 +41,7 @@ $render = function ($layout, $params) use ($twig) {
 
 ## Router
 
-$aura = new Aura\Router\RouterContainer('/public');
+$aura = new Aura\Router\RouterContainer();
 $routes = $aura->getMap();
 
 
