@@ -50,7 +50,9 @@ $routes->post('task-add', '/', [new TaskController($render), 'store']);
 $routes->post('login', '/login', [new AuthController($render), 'login']);
 $routes->post('logout', '/logout', new AuthDecorator([new AuthController($render), 'logout']));
 
-$routes->post('task-update', '/{id}', new AuthDecorator([new TaskController($render), 'update']));
+$routes->post('task-update', '/{id}', new AuthDecorator([new TaskController($render), 'update']))
+
+    ->tokens(['id' => '\d+']);
 $routes->post('task-complete', '/{id}/complete', new AuthDecorator([new TaskController($render), 'complete']));
 $routes->post('task-un-complete', '/{id}/un-complete', new AuthDecorator([new TaskController($render), 'unComplete']));
 

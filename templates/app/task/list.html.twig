@@ -37,7 +37,7 @@
         <div class="tools">
             {% if auth.user %}
                 <i class="fa fa-edit btn pointer"
-                   onclick="fillData({{ task|json_encode(constant('JSON_PRETTY_PRINT')) }}); $('#createTask').modal('show') "></i>
+                   onclick="fillData({{ task|json_encode(constant('JSON_PRETTY_PRINT')) }},`{{ path('task-update',{id:data.id},{}) }}`); $('#createTask').modal('show') "></i>
             {% endif %}
         </div>
     </li>

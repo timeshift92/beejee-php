@@ -34,13 +34,13 @@
 </div>
 
 <script>
-    function fillData(data) {
+    function fillData(data,url) {
         if (data) {
             $("#username").val(data.username).prop('readonly', true);
             $("#email").val(data.email).prop('readonly', true);
             $("#description").val(data.description);
 
-            $("#taskCreateForm").attr('action', `{{ path('task-update') }} /${data.id}`)
+            $("#taskCreateForm").attr('action', url)
         }
     }
 </script>
